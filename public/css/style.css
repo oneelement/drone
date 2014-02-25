@@ -42,3 +42,14 @@
     height: 100%;
     width: 100%;
 }
+
+#picture-wrapper {
+    position: fixed;
+    background: red;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    z-index: 500;
+    border-radius: 25px;
+}
