@@ -8,6 +8,8 @@ var express = require('express')
   , arDroneConstants = require('ar-drone/lib/constants')
   ;
 
+require("drone-ps3-controller");
+
 // Fetch configuration
 try {
     var config = require('./config');
