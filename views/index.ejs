@@ -10,17 +10,7 @@
     <% for(var i=0; i<styles.length; i++) {%>
     <link rel="stylesheet" href="<%= styles[i] %>"><% } %>
   </head>
-  <script>
-    var options = <%- JSON.stringify(options) %>;
-  </script>
-  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-  <script type="text/javascript" src="/components/jquery/jquery.js"></script>
-  <script type="text/javascript" src="/js/jquery.fullscreen-min.js"></script>
-  <script type="text/javascript" src="/js/polyfills.js"></script>
-  <script type="text/javascript" src="/js/cockpit.js"></script>
-  <script type="text/javascript" src="/js/jquery.notifyBar.js"></script>
-  <% for(var i=0; i<scripts.length; i++) {%>
-  <script type="text/javascript" src="<%= scripts[i] %>"></script><% } %>
+
 
   <body>
     <div class="header-container">
@@ -42,11 +32,23 @@
       <footer class="wrapper">
       </footer>
     </div>
-    <div id="picture-wrapper">
-      <div id="take-picture">
-        
-      </div>
+    <div id="picture-taken">
+      <img src=""/>
     </div>
+    <div id="picture-wrapper">
+    </div>
+    <script>
+      var options = <%- JSON.stringify(options) %>;
+    </script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/components/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery.fullscreen-min.js"></script>
+    <script type="text/javascript" src="/js/polyfills.js"></script>
+    <script type="text/javascript" src="/js/cockpit.js"></script>
+    <script type="text/javascript" src="/js/jquery.notifyBar.js"></script>
+    <script type="text/javascript" src="/js/gg-drone.js"></script>
+    <% for(var i=0; i<scripts.length; i++) {%>
+    <script type="text/javascript" src="<%= scripts[i] %>"></script><% } %>
     <script>
       var cockpit = new Cockpit();
     </script>

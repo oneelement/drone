@@ -53,3 +53,16 @@
     z-index: 500;
     border-radius: 25px;
 }
+
+#picture-taken {
+    position: fixed;
+    top: 50px;
+    right: 20px;
+    width: 350px;
+    height: 350px;
+    z-index: 500;
+}
+
+#picture-taken img {
+    width: 100%;
+}

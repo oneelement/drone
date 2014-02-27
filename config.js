@@ -1,16 +1,16 @@
 var config = {
         plugins: [
-            //"video-png"     // Display the video feed as static pngs (work in every browser)
-            "video-stream"  // Display the video as a native h264 stream decoded in JS 
+            "video-png"     // Display the video feed as static pngs (work in every browser)
+          , "video-stream"  // Display the video as a native h264 stream decoded in JS 
           , "hud"           // Display the artificial horizon, altimeter, compass, etc.
           , "battery"       // Display a simple battery widget in the header bar
           , "pilot"         // Pilot the drone with the keyboard
           , "blackbox"      // Experimental: Records all mision data (navData, raw video, PaVE headers, etc.)
-        //, "replay"        // Experimental: Replay the data recorded by the blackbox
+          //, "replay"        // Experimental: Replay the data recorded by the blackbox
         ],
 
         // Config for pilot plugin
-        keyboard: 'azerty',
+        keyboard: 'querty',
 
         // Config for blackbox plugin. Path is an existing folder where to store mission data
         // Each new mission will have its own timestamped folder.

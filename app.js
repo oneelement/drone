@@ -8,7 +8,8 @@ var express = require('express')
   , arDroneConstants = require('ar-drone/lib/constants')
   ;
 
-require("drone-ps3-controller");
+
+
 
 // Fetch configuration
 try {
@@ -101,11 +102,73 @@ client.on('flying', function() {
   io.sockets.emit('flying');
 });
 
+var clientSocket;
+
 // Process new websocket connection
 io.set('log level', 1);
 io.sockets.on('connection', function (socket) {
+
+  clientSocket = socket;
+
   socket.emit('event', { message: 'Welcome to cockpit :-)' });
+
+  //Take Picture
+  socket.on('cheese', function () {
+    console.log('cheese');
+    setTimeout(function() {
+      //console.log(client.getVideoStream());
+//
+      //client.getVideoStream().once('data', function(buffer){
+      //  console.log(buffer);
+      //  var fileName = '/cheese/boom.png';
+      //  fs.writeFile('public' + fileName, buffer, function(err){
+      //      if (err) console.log(err);
+      //      //socket.emit('updateCheese', fileName);
+      //  });
+      //})
+
+      client.getPngStream().once('data', function(data) {
+        var fileName = '/cheese/cheese.png';
+        console.log(data);
+        fs.writeFile('public' + fileName, data, function(err){
+            if (err) console.log(err);
+            socket.emit('updateCheese', fileName);
+        });
+      });
+    }, 1000);
+  });
+
 });
+
+io.on('serverCheese', function(){
+  console.log('server-cheese');
+  takePicture();
+});
+
+io.on('serverTweet', function(){
+  console.log('server-tweet');
+  tweetPicture();
+});
+
+var takePicture = function() {
+  console.log('cheese');
+  console.log(client);
+  setTimeout(function() {
+    client.getPngStream().once('data', function(data) {
+      var fileName = '/cheese/cheese.png';
+      console.log(data);
+      fs.writeFile('public' + fileName, data, function(err){
+          if (err) console.log(err);
+          clientSocket.emit('updateCheese', fileName);
+      });
+    });
+  }, 1000);
+};
+
+var tweetPicture = function() {
+  console.log('tweet picture');
+};
+
 
 // Schedule a time to push navdata updates
 var pushNavData = function() {
@@ -122,6 +185,8 @@ var deps = {
   , config: config
 };
 
+//Load Gamepad
+var gamepad = require("drone-ps3-controller")(io);
 
 // Load the plugins
 var dir = path.join(__dirname, 'plugins');
