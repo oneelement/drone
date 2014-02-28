@@ -8,6 +8,8 @@ var express = require('express')
   , arDroneConstants = require('ar-drone/lib/constants')
   ;
 
+//NODE TWITTER API
+
 //var twitterAPI = require('node-twitter-api');
 //var twitter = new twitterAPI({
 //    consumerKey: 'U8c00P1RXAbt3BYokrw5nQ',
@@ -212,11 +214,12 @@ var takePicture = function() {
       console.log(data);
       fs.writeFile('public' + fileName, data, function(err){
           if (err) console.log(err);
-          clientSocket.emit('updateCheese', fileName);
+          //clientSocket.emit('updateCheese', fileName);
       });
       var timeStamp = new Date().getTime();
       fs.writeFile('public/cheese/cheese_' + timeStamp + '.png', data, function(err){
           if (err) console.log(err);
+          clientSocket.emit('updateCheese', '/cheese/cheese_' + timeStamp + '.png');
       });
     });
   }, 100);
@@ -243,7 +246,7 @@ var deps = {
 };
 
 //Load Gamepad
-//var gamepad = require("drone-ps3-controller")(io);
+var gamepad = require("drone-ps3-controller")(io);
 
 // Load the plugins
 var dir = path.join(__dirname, 'plugins');

@@ -11,9 +11,9 @@
 
     socket.on('updateCheese', function(fileName){
         console.log(fileName);
-        $('#picture-taken img').attr('src', fileName);
+        //$('#picture-taken img').attr('src', fileName);
         $('#picture-screen').css('display', 'block').fadeOut(2000);
-        $('#picture-taken').css('display', 'block');
+        $('#picture-taken').css('display', 'block').css('background-image', 'url(' + fileName + ')');
     });
 
 }(window, document, jQuery));
