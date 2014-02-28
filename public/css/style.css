@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Archer';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Archer-Medium-Pro'), url(../fonts/Archer-Medium-Pro.woff) format('woff');
+}
+
 .header-container {
      position: absolute;
      top: 0;
@@ -10,7 +17,7 @@
 }
 
 .header-container .brand {
-     font-family: Audiowide, Arial
+     font-family: 'Archer';
 }
 
 .main-container {
@@ -56,13 +63,49 @@
 
 #picture-taken {
     position: fixed;
-    top: 50px;
-    right: 20px;
-    width: 350px;
-    height: 350px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
     z-index: 500;
+    display: none;
+    background-image: url('/cheese/cheese.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#picture-taken h3 {
+    font-size: 60px;
+    color: white;
+    text-align: center;
+    position: absolute;
+    top: 35%;
+    width: 100%;
+    text-shadow: 2px 2px #000;
+    font-family: 'Archer';
 }
 
 #picture-taken img {
     width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
 }
+
+#picture-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 501;
+    bottom: 0;
+    background: white;
+
+    display: none;
+
+   
+}
+
+

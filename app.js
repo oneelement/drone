@@ -8,6 +8,59 @@ var express = require('express')
   , arDroneConstants = require('ar-drone/lib/constants')
   ;
 
+//var twitterAPI = require('node-twitter-api');
+//var twitter = new twitterAPI({
+//    consumerKey: 'U8c00P1RXAbt3BYokrw5nQ',
+//    consumerSecret: '4POnzXJ8BqaGTYwZsg5bEGfp5gSpc2xjPUMGux2Dg',
+//    callback: 'http://lvh.me:3000/'
+//});
+//
+//twitter.getRequestToken(function(error, requestToken, requestTokenSecret, results){
+//    if (error) {
+//        console.log("Error getting OAuth request token : " + error);
+//    } else {
+//        //store token and tokenSecret somewhere, you'll need them later; redirect user
+//        var twitterRequestToken = requestToken,
+//            twitterRequestTokenSecret = requestTokenSecret;
+//        tweet();
+//    }
+//});
+//
+////twitter.getAccessToken(twitterRequestToken, twitterRequestTokenSecret, oauth_verifier, function(error, accessToken, accessTokenSecret, results) {
+////    if (error) {
+////        console.log(error);
+////    } else {
+////        //store accessToken and accessTokenSecret somewhere (associated to the user)
+////        //Step 4: Verify Credentials belongs here
+////    }
+////});
+//
+//
+//
+//function tweet(){
+//  var filePath = "public/cheese/cheese.png";
+//  var image = fs.createReadStream(path.normalize(filePath));
+//  twitter.statuses("update_with_media", {
+//          'status': "Drone tweet with image!",
+//          'media[]': image
+//      },
+//      "213361412-2l7VFcKUGxtRwymzsrudzpvSnDZ1stGTRDcfYZe6",
+//      "P14t4pUyLaCLAaY4KCh8j0pTzJXwmRL7Q83ayON172xf9",
+//      function(error, data, response) {
+//          if (error) {
+//              // something went wrong
+//              console.log(error);
+//              console.log("tweet wrong");
+//          } else {
+//              // data contains the data sent by twitter
+//              console.log("tweet success");
+//          }
+//      }
+//  );  
+//}
+
+
+
 
 
 
@@ -135,7 +188,7 @@ io.sockets.on('connection', function (socket) {
             socket.emit('updateCheese', fileName);
         });
       });
-    }, 1000);
+    }, 100);
   });
 
 });
@@ -152,7 +205,7 @@ io.on('serverTweet', function(){
 
 var takePicture = function() {
   console.log('cheese');
-  console.log(client);
+  console.log(client.getPngStream());
   setTimeout(function() {
     client.getPngStream().once('data', function(data) {
       var fileName = '/cheese/cheese.png';
@@ -161,8 +214,12 @@ var takePicture = function() {
           if (err) console.log(err);
           clientSocket.emit('updateCheese', fileName);
       });
+      var timeStamp = new Date().getTime();
+      fs.writeFile('public/cheese/cheese_' + timeStamp + '.png', data, function(err){
+          if (err) console.log(err);
+      });
     });
-  }, 1000);
+  }, 100);
 };
 
 var tweetPicture = function() {
@@ -186,7 +243,7 @@ var deps = {
 };
 
 //Load Gamepad
-var gamepad = require("drone-ps3-controller")(io);
+//var gamepad = require("drone-ps3-controller")(io);
 
 // Load the plugins
 var dir = path.join(__dirname, 'plugins');
